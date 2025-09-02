@@ -1,0 +1,138 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Learning Log</title>
+	{% bootstrap_css %}
+	{% bootstrap_javascript jquery='full' %}
+	<style>
+		/* Современный glassmorphism стиль для проекта */
+		body {
+			background: linear-gradient(120deg, #e0e7ef 0%, #f8fafc 100%);
+			min-height: 100vh;
+			font-family: 'Segoe UI', 'Arial', sans-serif;
+		}
+		.custom-card {
+			background: rgba(255, 255, 255, 0.18);
+			border-radius: 1.5rem;
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+			backdrop-filter: blur(16px) saturate(180%);
+			-webkit-backdrop-filter: blur(16px) saturate(180%);
+			border: 1px solid rgba(255, 255, 255, 0.24);
+			padding: 2.5rem 2.5rem 2rem 2.5rem;
+			margin: 0 auto;
+			transition: box-shadow 0.3s;
+		}
+		.custom-card:hover {
+			box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.28);
+		}
+		.custom-title {
+			font-family: 'Segoe UI', 'Arial', sans-serif;
+			font-weight: 800;
+			font-size: 2.1rem;
+			background: linear-gradient(90deg, #4f8cff 0%, #38b2ac 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-fill-color: transparent;
+			letter-spacing: 2px;
+			margin-bottom: 1.5rem;
+		}
+		.btn-custom {
+			background: linear-gradient(90deg, #4f8cff 0%, #38b2ac 100%);
+			color: #fff;
+			border: none;
+			border-radius: 2rem;
+			font-weight: 700;
+			font-size: 1.1rem;
+			transition: box-shadow 0.25s, background 0.25s;
+			box-shadow: 0 2px 16px 0 rgba(79, 140, 255, 0.18), 0 0 8px #38b2ac33;
+			text-shadow: 0 1px 8px #38b2ac33;
+		}
+		.btn-custom:hover, .btn-custom:focus {
+			background: linear-gradient(90deg, #38b2ac 0%, #4f8cff 100%);
+			color: #fff;
+			box-shadow: 0 4px 32px 0 rgba(56, 178, 172, 0.22), 0 0 16px #4f8cff55;
+			outline: none;
+		}
+		.alert-custom {
+			background: rgba(255,255,255,0.35);
+			color: #2a4365;
+			border: 1.5px solid #4f8cff55;
+			border-radius: 1.2rem;
+			font-weight: 600;
+			box-shadow: 0 2px 12px 0 rgba(56, 178, 172, 0.10);
+			backdrop-filter: blur(8px);
+		}
+		.form-group input, .form-group select, .form-group textarea {
+			background: rgba(255,255,255,0.45);
+			border: 1.5px solid #4f8cff33;
+			border-radius: 1.2rem;
+			color: #2a4365;
+			font-size: 1.05rem;
+			padding: 0.7rem 1.1rem;
+			transition: border 0.2s, box-shadow 0.2s;
+			box-shadow: 0 1px 8px 0 rgba(56, 178, 172, 0.07);
+		}
+		.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+			border: 1.5px solid #38b2ac;
+			box-shadow: 0 2px 16px 0 #38b2ac33;
+			outline: none;
+		}
+		.invalid-feedback {
+			color: #e53e3e;
+			font-size: 0.98rem;
+			margin-top: 0.2rem;
+		}
+		::-webkit-input-placeholder { color: #a0aec0; }
+		::-moz-placeholder { color: #a0aec0; }
+		:-ms-input-placeholder { color: #a0aec0; }
+		::placeholder { color: #a0aec0; }
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+	<a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+		Learning Log</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span></button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'learning_logs:topics' %}">
+					Topics</a></li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			{% if user.is_authenticated %}
+				<li class="nav-item">
+					<span class="navbar-text"> Hello, {{ user.username }}.</span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:register' %}">Register</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'users:login' %}">Log in</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>
+<main role="main" class="container">
+	<div class="pb-2 mb-2 border-bottom">
+		{% block page_header %}{% endblock page_header %}
+	</div>
+	<div>
+		{% block content %}{% endblock content %}
+	</div>
+</main>
+</body>
+</html>
