@@ -19,3 +19,9 @@ def register(request):
     # Вывести пустую или недействительную форму.
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+
+
+def logout_view(request):
+    """Выводит пользователя из системы."""
+    logout(request)
+    return render(request, 'registration/logged_out.html')
