@@ -24,7 +24,7 @@ def register(request):
 def logout_view(request):
     """Выводит пользователя из системы."""
     logout(request)
-    return render(request, 'registration/logged_out.html')
+    return render(request, 'registration/logout.html')
 
 
 def login_view(request):
